@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class TopPageIndexServlet
  */
-@WebServlet("/index.html")
+@WebServlet("/index.html") //localhost:8080でトップページにアクセスできるようにする
 public class TopPageIndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class TopPageIndexServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
-        rd.forward(request, response);
+        rd.forward(request, response); //index.jspにフォワード
     }
 
 }

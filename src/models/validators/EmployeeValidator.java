@@ -12,12 +12,14 @@ import utils.DBUtil;
 
 public class EmployeeValidator {
 
+    //クラスメソッド validate
     public static List<String> validate(Employee e, Boolean code_duplicate_check_flag, Boolean password_check_flag) {
-        List<String> errors = new ArrayList<String>(); //インスタンス
 
-        String code_error = _validateCode(e.getCode(), code_duplicate_check_flag);//_validateCodeメソッドを実行
-        if(!code_error.equals("")) { //code_errorが空じゃない＝エラーがある
-            errors.add(code_error); //code_errorに保存
+        List<String> errors = new ArrayList<String>(); //インスタンス"errors"
+
+        String code_error = _validateCode(e.getCode(), code_duplicate_check_flag);//コードを取得して重複チェックするメソッド
+        if(!code_error.equals("")) { //code_errorが空じゃない＝エラーがあるなら
+            errors.add(code_error); //code_errorを保存
         }
 
         String name_error = _validateName(e.getName());
@@ -30,11 +32,12 @@ public class EmployeeValidator {
             errors.add(password_error);
         }
 
-        return errors;
+        return errors; //エラーを返す
     }
 
-    //社員番号
+    //社員番号（クラスメソッド_validateCode）
     public static String _validateCode(String code, Boolean code_duplicate_check_flag) {
+
         // 必須入力チェック
         if(code == null || code.equals("")){
                 return "社員番号を入力してください。";
@@ -44,11 +47,12 @@ public class EmployeeValidator {
         if(code_duplicate_check_flag){
             EntityManager em = DBUtil.createEntityManager();
             long employees_count = (long)em.createNamedQuery("checkRegisteredCode", Long.class)
+            //String型からLong型を生成    社員番号が登録されているか調べる
                                            .setParameter("code", code)
-                                             .getSingleResult();
+                                           .getSingleResult();
             em.close();
 
-            if(employees_count > 0) { //
+            if(employees_count > 0) { //０じゃないなら
                 return "入力された社員番号の情報はすでに存在しています。";
             }
         }
@@ -57,7 +61,7 @@ public class EmployeeValidator {
 
         }
 
-     // 社員名の必須入力チェック
+     // 社員名の必須入力チェック（_validateNameメソッド）
         private static String _validateName(String name) {
             if(name == null || name.equals("")) {
                 return "氏名を入力してください。";
