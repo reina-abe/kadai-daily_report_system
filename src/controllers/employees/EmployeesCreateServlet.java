@@ -52,7 +52,7 @@ public class EmployeesCreateServlet extends HttpServlet {
                 em.close(); //emおわり
 
                 request.setAttribute("_token", request.getSession().getId()); //id取得して_token名でjspに渡す
-                request.setAttribute("employee", e); //インスタンスeのデータをemployee名で渡す
+                request.setAttribute("employee", e); //インスタンスeに入ったデータをemployee名で渡す
                 request.setAttribute("errors", errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/new.jsp");
