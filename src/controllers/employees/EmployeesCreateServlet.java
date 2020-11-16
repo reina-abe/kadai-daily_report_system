@@ -45,7 +45,7 @@ public class EmployeesCreateServlet extends HttpServlet {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             e.setCreated_at(currentTime);
             e.setUpdated_at(currentTime);
-            e.setDelete_flag(0);
+            e.setDelete_flag(0); //0になっている従業員情報は現役
 
             List<String> errors = EmployeeValidator.validate(e, true, true);
             if(errors.size() > 0) { //エラーがあったら

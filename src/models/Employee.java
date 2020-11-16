@@ -52,8 +52,8 @@ public class Employee {
     private String password;
     //SHA256 というハッシュ関数を利用してハッシュ化した文字列をデータベースへ保存
 
-    @Column(name = "admin_flag", nullable = false) //管理者権限があるかどうか
-    private Integer admin_flag; //数値型（一般：0、管理者：1）
+    @Column(name = "admin_flag", nullable = false) //管理者権限があるかどうか（一般：0、管理者：1）
+    private Integer admin_flag;
 
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
@@ -61,8 +61,8 @@ public class Employee {
     @Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
 
-    @Column(name = "delete_flag", nullable = false) //削除された従業員かどうか
-    private Integer delete_flag; //数値型（現役：0、削除済み：1）
+    @Column(name = "delete_flag", nullable = false) //削除された従業員かどうか（現役：0、削除済み：1）
+    private Integer delete_flag;
 
     public Integer getId() {
         return id;
