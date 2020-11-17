@@ -11,6 +11,8 @@
 </c:if>
 <label for="code">社員番号</label><br />
 <input type="text" name="code" value="${employee.code}" />
+<!-- リクエストスコープのemployeeオブジェクトから
+データを参照して、入力内容の初期値として表示する -->
 <br /><br />
 
 <label for="name">氏名</label><br />
@@ -30,3 +32,6 @@
 
 <input type="hidden" name="_token" value="${_token}" />
 <button type="submit">投稿</button>
+
+<!-- _form.jspを引用する形でnew.jspを作る意義は、
+他の機能を追加する際にも_form.jspを使えるようにするため -->

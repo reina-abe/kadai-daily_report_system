@@ -21,8 +21,13 @@ public class EmployeesNewServlet extends HttpServlet {
         }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("_token", request.getSession().getId()); //JSPに_token名でセッション＆id取得を渡す
-        request.setAttribute("employee", new Employee()); //employee名でnew Employee()を渡す
+
+        request.setAttribute("_token", request.getSession().getId());
+        //JSPに_token名でセッション＆id取得を渡す
+
+        request.setAttribute("employee", new Employee());
+        /*リクエストスコープにemployeeが入っていなければエラーが表示されるため、画面表示時のエラー
+        回避のため、とりあえず “文字数0のデータ” をフォームに渡す*/
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/new.jsp");
         rd.forward(request, response);

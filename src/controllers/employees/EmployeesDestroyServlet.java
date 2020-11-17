@@ -26,19 +26,24 @@ public class EmployeesDestroyServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String _token = (String)request.getParameter("_token");
-        if(_token != null && _token.equals(request.getSession().getId())) {
+        String _token = (String)request.getParameter("_token"); //_token（社員データ？）を取得して代入
+        if(_token != null && _token.equals(request.getSession().getId())) { //セッションIDと同じなら
             EntityManager em = DBUtil.createEntityManager();
 
+            //Employeeクラスからemployee_idを取得して、削除済、更新日時をセット
             Employee e = em.find(Employee.class, (Integer)(request.getSession().getAttribute("employee_id")));
-            e.setDelete_flag(1); //1になっている従業員情報は削除されている とみなす
+            e.setDelete_flag(1); //削除されている
             e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
+            //DBに保存
             em.getTransaction().begin();
             em.getTransaction().commit();
             em.close();
+
+            //フラッシュメッセージ
             request.getSession().setAttribute("flush", "削除が完了しました。");
 
+            //indexにリダイレクト
             response.sendRedirect(request.getContextPath() + "/employees/index");
         }
     }

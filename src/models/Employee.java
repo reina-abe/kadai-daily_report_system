@@ -27,7 +27,8 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "checkRegisteredCode",
             query = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :code"
-            ),
+            ),//select count(*) from employees where code = [setParameterに渡した第二引数];
+
     //従業員がログインするときに社員番号とパスワードが正しいかをチェックする
     @NamedQuery(
             name = "checkLoginCodeAndPassword",

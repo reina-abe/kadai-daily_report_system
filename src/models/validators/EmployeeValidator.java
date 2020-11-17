@@ -12,10 +12,10 @@ import utils.DBUtil;
 
 public class EmployeeValidator {
 
-    //クラスメソッド validate
+    //validateメソッド
     public static List<String> validate(Employee e, Boolean code_duplicate_check_flag, Boolean password_check_flag) {
 
-        List<String> errors = new ArrayList<String>(); //インスタンス"errors"
+        List<String> errors = new ArrayList<String>(); //オブジェクト"errors"
 
         String code_error = _validateCode(e.getCode(), code_duplicate_check_flag);//コードを取得して重複チェックするメソッド
         if(!code_error.equals("")) { //code_errorが空じゃない＝エラーがあるなら
@@ -35,7 +35,7 @@ public class EmployeeValidator {
         return errors; //エラーを返す
     }
 
-    //社員番号（クラスメソッド_validateCode）
+    //社員番号（_validateCodeメソッド）
     public static String _validateCode(String code, Boolean code_duplicate_check_flag) {
 
         // 必須入力チェック
@@ -45,14 +45,15 @@ public class EmployeeValidator {
 
         // すでに登録されている社員番号との重複チェック
         if(code_duplicate_check_flag){
+        //code_duplicate_check_flag == trueである時
             EntityManager em = DBUtil.createEntityManager();
             long employees_count = (long)em.createNamedQuery("checkRegisteredCode", Long.class)
-            //String型からLong型を生成    社員番号が登録されているか調べる
-                                           .setParameter("code", code)
-                                           .getSingleResult();
+                                           .setParameter("code", code).getSingleResult(); //この行はクエリの条件
+            //checkRegisteredCodeのNamedQueryで渡された社員番号のcodeがテーブル内にあるかの件数を取得
+
             em.close();
 
-            if(employees_count > 0) { //０じゃないなら
+            if(employees_count > 0) {
                 return "入力された社員番号の情報はすでに存在しています。";
             }
         }

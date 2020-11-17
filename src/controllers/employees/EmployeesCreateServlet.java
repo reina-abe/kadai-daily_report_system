@@ -28,9 +28,10 @@ public class EmployeesCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String _token = (String)request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
+            //NewServlet→new.jspから取得した_tokenとここで取得する値が同じか
             EntityManager em = DBUtil.createEntityManager();
 
-            Employee e = new Employee(); //インスタンス
+            Employee e = new Employee(); //オブジェクト
 
             e.setCode(request.getParameter("code"));
             e.setName(request.getParameter("name"));
