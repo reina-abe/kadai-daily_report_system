@@ -17,11 +17,11 @@ import javax.persistence.Table;
 
 @Table(name = "reports")
 @NamedQueries({
-    @NamedQuery(
+    @NamedQuery(  //すべての日報を取得
             name = "getAllReports",
             query = "SELECT r FROM Report AS r ORDER BY r.id DESC"
             ),
-    @NamedQuery(
+    @NamedQuery(  //日報の全件数を取得
             name = "getReportsCount",
             query = "SELECT COUNT(r) FROM Report AS r"
             ),
