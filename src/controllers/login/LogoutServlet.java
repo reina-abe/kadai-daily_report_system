@@ -23,7 +23,8 @@ public class LogoutServlet extends HttpServlet {
         //フラッシュメッセージ
         request.getSession().setAttribute("flush", "ログアウトしました。");
 
-        response.sendRedirect(request.getContextPath() + "/login");
+        response.sendRedirect(request.getContextPath() + "/login"); //loginにリダイレクト
+
     }
 
 }

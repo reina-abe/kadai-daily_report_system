@@ -15,7 +15,7 @@ public class EmployeeValidator {
     //validateメソッド
     public static List<String> validate(Employee e, Boolean code_duplicate_check_flag, Boolean password_check_flag) {
 
-        List<String> errors = new ArrayList<String>(); //オブジェクト"errors"
+        List<String> errors = new ArrayList<String>(); //インスタンス"errors"
 
         String code_error = _validateCode(e.getCode(), code_duplicate_check_flag);//コードを取得して重複チェックするメソッド
         if(!code_error.equals("")) { //code_errorが空じゃない＝エラーがあるなら

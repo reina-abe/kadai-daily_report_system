@@ -31,7 +31,7 @@ public class EmployeesCreateServlet extends HttpServlet {
             //NewServlet→new.jspから取得した_tokenとここで取得する値が同じか
             EntityManager em = DBUtil.createEntityManager();
 
-            Employee e = new Employee(); //オブジェクト
+            Employee e = new Employee(); //インスタンス
 
             e.setCode(request.getParameter("code"));
             e.setName(request.getParameter("name"));

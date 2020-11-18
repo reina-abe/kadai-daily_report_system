@@ -43,18 +43,18 @@ public class LoginServlet extends HttpServlet {
     // ログイン処理を実行
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 認証結果を格納する変数
-        Boolean check_result = false; //(e == null)
+        Boolean check_result = false; //認証結果は偽
 
         String code = request.getParameter("code"); //"code"の値を取得してcodeに代入
         String plain_pass = request.getParameter("password"); //"password"の値を取得してplain_passに代入
 
         Employee e = null; //eの初期値
 
-        //codeにもplain_passも入力されてたら
+        //codeにもplain_passも入力があったら
         if(code != null && !code.equals("") && plain_pass != null && !plain_pass.equals("")) {
             EntityManager em = DBUtil.createEntityManager();
 
-            //plain_passをペッパーで暗号化してpasswordに代入
+            //plain_passをペッパーで暗号化してpasswordに代入する
             String password = EncryptUtil.getPasswordEncrypt(
                     plain_pass,
                     (String)this.getServletContext().getAttribute("pepper")
@@ -62,16 +62,16 @@ public class LoginServlet extends HttpServlet {
 
             // 社員番号とパスワードが正しいかチェックする
             try {
-                //checkLoginCodeAndPasswordクエリを実行してeに入れる
+                //codeとpasswordを条件に入れてcheckLoginCodeAndPasswordクエリを実行、eに入れる
                 e = em.createNamedQuery("checkLoginCodeAndPassword", Employee.class)
                       .setParameter("code", code)
-                      .setParameter("pass", password)
+                      .setParameter("pass", password) //クエリのpassのところに暗号化したpasswordを入れる
                       .getSingleResult();
             } catch(NoResultException ex) {}
 
             em.close();
 
-            if(e != null) { //eに入ってたら
+            if(e != null) { //eに値があれば（１件取得してたら）
                 check_result = true; //認証結果は真(認証した)
             }
         }
@@ -79,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 
         if(!check_result) { // 認証できなかったらログイン画面に戻る
             request.setAttribute("_token", request.getSession().getId());
-            request.setAttribute("hasError", true);
+            request.setAttribute("hasError", true);  //hasError名でtrueを渡す
             request.setAttribute("code", code);
 
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
