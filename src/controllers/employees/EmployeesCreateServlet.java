@@ -49,6 +49,7 @@ public class EmployeesCreateServlet extends HttpServlet {
             e.setDelete_flag(0); //0になっている従業員情報は現役
 
             List<String> errors = EmployeeValidator.validate(e, true, true);
+            //社員番号の重複チェックとパスワードチェックをする
             if(errors.size() > 0) { //エラーがあったら
                 em.close(); //emおわり
 

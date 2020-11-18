@@ -120,7 +120,7 @@ select {
 }
 
 #employee_name {
-    color: #cccccc;
+    color: #00ff00;
     width: 36%;
     padding-right: 3%;
     text-align: right;
@@ -134,3 +134,4 @@ select {
 h1 a {
     color: #eeeeee;
 }
+

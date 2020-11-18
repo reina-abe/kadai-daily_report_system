@@ -17,9 +17,10 @@ public class EmployeeValidator {
 
         List<String> errors = new ArrayList<String>(); //インスタンス"errors"
 
-        String code_error = _validateCode(e.getCode(), code_duplicate_check_flag);//コードを取得して重複チェックするメソッド
+        String code_error = _validateCode(e.getCode(), code_duplicate_check_flag);
+        //_validateCodeメソッドでコードを取得、重複チェックしたらcode_errorに代入
         if(!code_error.equals("")) { //code_errorが空じゃない＝エラーがあるなら
-            errors.add(code_error); //code_errorを保存
+            errors.add(code_error); //errorsにcode_errorのデータを保存
         }
 
         String name_error = _validateName(e.getName());
