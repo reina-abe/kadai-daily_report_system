@@ -38,6 +38,7 @@ public class LoginFilter implements Filter {
 
             // セッションスコープに保存された従業員（ログインユーザ）情報を取得
             Employee e = (Employee)session.getAttribute("login_employee");
+            //セッションスコープから従業員情報を取り出し、変数 e に格納
 
             if(!servlet_path.equals("/login")) {  // ログイン画面以外について
 
@@ -49,12 +50,13 @@ public class LoginFilter implements Filter {
 
                 // 従業員管理の機能は管理者のみが閲覧できるようにする
                 if(servlet_path.matches("/employees.*") && e.getAdmin_flag() == 0) {
+                  /*（/emploees）のページにアクセスした場合、ログインしている従業員情報の
+                    admin_flag をチェックし、一般従業員である（admin_flag の値が0）なら*/
                     ((HttpServletResponse)response).sendRedirect(context_path + "/");
-                    return;
+                    return; //トップページへリダイレクト
                 }
-            } else {                                    // ログイン画面について
-                // ログインしているのにログイン画面を表示させようとした場合は
-                // システムのトップページにリダイレクト
+            } else {  // ログイン画面について
+                // ログインしているのにログイン画面を表示させようとした場合はトップページにリダイレクト
                 if(e != null) {
                     ((HttpServletResponse)response).sendRedirect(context_path + "/");
                     return;

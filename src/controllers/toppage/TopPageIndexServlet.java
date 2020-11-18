@@ -16,18 +16,22 @@ import javax.servlet.http.HttpServletResponse;
 public class TopPageIndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public TopPageIndexServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
+    //ログイン後のトップページにフラッシュメッセージを表示できるようにする
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      //"flush"がセッションスコープにあったら
+        if(request.getSession().getAttribute("flush") != null) {
+            //"flush"を取得して"flush"名にセット
+            request.setAttribute("flush", request.getSession().getAttribute("flush"));
+            //取得した"flush"は除去する
+            request.getSession().removeAttribute("flush");
+        }
+
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
         rd.forward(request, response); //index.jspにフォワード
     }
