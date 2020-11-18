@@ -38,7 +38,7 @@ public class Report {
     private Employee employee;
     //ログインしている従業員の情報をオブジェクトのまま employee フィールドに格納
 
-    @Column(name = "report_date", nullable = false) //いつの仕事の日報か
+    @Column(name = "report_date", nullable = false) //いつのしごとの日報か
     private Date report_date;
 
     @Column(name = "title", length = 255, nullable = false)
