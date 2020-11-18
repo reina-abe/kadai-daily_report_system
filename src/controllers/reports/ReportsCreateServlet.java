@@ -34,7 +34,7 @@ public class ReportsCreateServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
 
             Report r = new Report();
-            //作成者をセッションスコープに入れる
+            //作成者をEmployeeとしてセッションスコープに入れる
             r.setEmployee((Employee)request.getSession().getAttribute("login_employee"));
 
             Date report_date = new Date(System.currentTimeMillis());//インスタンス
@@ -42,14 +42,17 @@ public class ReportsCreateServlet extends HttpServlet {
             if(rd_str != null && !rd_str.equals("")) {//rd_strに値があれば
                 report_date = Date.valueOf(request.getParameter("report_date"));
             } //Stringで受け取った日付を Date 型へ変換。日付欄が未入力の場合、当日の日付を入れる
+
+            //日報日時とタイトル、内容をrに設定
             r.setReport_date(report_date);
             r.setTitle(request.getParameter("title"));
             r.setContent(request.getParameter("content"));
-
+            //インスタンスを生成して、現在時刻で登録日時と更新日時をrに設定
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             r.setCreated_at(currentTime);
             r.setUpdated_at(currentTime);
 
+            //validate(r)メソッドを実行してエラーがあればセッションidとrの内容とエラーをnew.jspに渡す
             List<String> errors = ReportValidator.validate(r);
             if(errors.size() > 0) {
                 em.close();
@@ -60,13 +63,16 @@ public class ReportsCreateServlet extends HttpServlet {
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
                 rd.forward(request, response);
+
+            //エラーがなければ、DBに登録
             } else {
                 em.getTransaction().begin();
                 em.persist(r);
                 em.getTransaction().commit();
                 em.close();
+                //フラッシュメッセージ
                 request.getSession().setAttribute("flush", "登録が完了しました。");
-
+                //indexにリダイレクト
                 response.sendRedirect(request.getContextPath() + "/reports/index");
             }
         }

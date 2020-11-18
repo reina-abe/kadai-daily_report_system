@@ -24,14 +24,16 @@ public class ReportsEditServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
-
+        //1件取得
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
-
+        //
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
-        if(r != null && login_employee.getId() == r.getEmployee().getId()) {
         //ここで取得したidとDBで取得したidが同じなら
+        if(r != null && login_employee.getId() == r.getEmployee().getId()) {
+
+            //取得した１件を"report"、セッションidを_token、idを"report_id"にしてedit.jspに渡す
             request.setAttribute("report", r);
             request.setAttribute("_token", request.getSession().getId());
             request.getSession().setAttribute("report_id", r.getId());

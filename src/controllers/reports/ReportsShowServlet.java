@@ -23,11 +23,11 @@ public class ReportsShowServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
-
+        //idから１件取得してｒに入れる
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
-
+        //取得した１件をreport名に、セッションidを_tokenにしてshow.jspに渡す
         request.setAttribute("report", r);
         request.setAttribute("_token", request.getSession().getId());
 
