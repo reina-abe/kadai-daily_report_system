@@ -26,9 +26,9 @@ public class EmployeesIndexServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         //ページネーション
-        int page = 1;
+        int page = 1; //初期値
         try{
-            page = Integer.parseInt(request.getParameter("page")); //ページを数値にする
+            page = Integer.parseInt(request.getParameter("page")); //"page"を数値にしてpageに代入
         } catch(NumberFormatException e){ }
         //文字列を数値型に変換しようとしたとき、文字列の形式が正しくない場合にスローされる
 

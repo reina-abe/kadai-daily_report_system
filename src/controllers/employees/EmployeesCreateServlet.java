@@ -28,11 +28,12 @@ public class EmployeesCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String _token = (String)request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
-            //NewServlet→new.jspから取得した_tokenとここで取得する値が同じか
+            //NewServlet→new.jspから取得した_tokenとここで取得するidが同じか
             EntityManager em = DBUtil.createEntityManager();
 
             Employee e = new Employee(); //インスタンス
 
+            //社員番号、氏名、暗号化したパスワード、権限をeにセット
             e.setCode(request.getParameter("code"));
             e.setName(request.getParameter("name"));
             e.setPassword(
@@ -43,13 +44,15 @@ public class EmployeesCreateServlet extends HttpServlet {
                 );
             e.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
 
+            //インスタンス生成して登録・更新日時をeにセット
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             e.setCreated_at(currentTime);
             e.setUpdated_at(currentTime);
             e.setDelete_flag(0); //0になっている従業員情報は現役
 
-            List<String> errors = EmployeeValidator.validate(e, true, true);
             //社員番号の重複チェックとパスワードチェックをする
+            List<String> errors = EmployeeValidator.validate(e, true, true);
+
             if(errors.size() > 0) { //エラーがあったら
                 em.close(); //emおわり
 
@@ -64,7 +67,7 @@ public class EmployeesCreateServlet extends HttpServlet {
                 em.getTransaction().begin();
                 em.persist(e);
                 em.getTransaction().commit();
-                request.getSession().setAttribute("flush", "登録が完了しました。");//セッションスコープに入れる
+                request.getSession().setAttribute("flush", "登録が完了しました。");
                 em.close();
 
                 response.sendRedirect(request.getContextPath() + "/employees/index");

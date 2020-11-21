@@ -27,9 +27,9 @@ public class LoginServlet extends HttpServlet {
     // ログイン画面を表示
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("_token", request.getSession().getId()); //セッションidを"_token"名で渡す
-        request.setAttribute("hasError", false); //
+        request.setAttribute("hasError", false); //falseを"hasError"で渡す
         if(request.getSession().getAttribute("flush") != null) {
-          //セッションスコープに「flush」という名前の値があれば
+          //セッションに「flush」という名前の値があれば
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             //リクエストスコープに「flush」という名前を付けて保存する
             request.getSession().removeAttribute("flush");
@@ -91,8 +91,8 @@ public class LoginServlet extends HttpServlet {
             /*「セッションスコープに login_employee という名前で従業員情報の
             オブジェクトが保存されている状態」がログインしている状態*/
 
-            request.getSession().setAttribute("flush", "ログインしました。");
-            response.sendRedirect(request.getContextPath() + "/");
+            request.getSession().setAttribute("flush", "ログインしました。"); //フラッシュメッセージ
+            response.sendRedirect(request.getContextPath() + "/"); //最初の画面
         }
     }
 }

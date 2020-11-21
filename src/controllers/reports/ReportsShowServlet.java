@@ -27,7 +27,7 @@ public class ReportsShowServlet extends HttpServlet {
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
-        //取得した１件をreport名に、セッションidを_tokenにしてshow.jspに渡す
+        //取得した１件を"report"に、セッションidを"_token"にしてshow.jspに渡す
         request.setAttribute("report", r);
         request.setAttribute("_token", request.getSession().getId());
 

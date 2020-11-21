@@ -36,7 +36,7 @@ public class EmployeesUpdateServlet extends HttpServlet {
             // 現在の値と異なる社員番号が入力されていたら重複チェックを行う指定をする
             Boolean code_duplicate_check = true;
 
-            //取得したコードとDBのコードが同じなら重複チェックはしない
+            //DBのコードと取得したコードが同じなら重複チェックはしない
             if(e.getCode().equals(request.getParameter("code"))) {
                 code_duplicate_check = false;
 
@@ -51,7 +51,7 @@ public class EmployeesUpdateServlet extends HttpServlet {
             if(password == null || password.equals("")) {  //空なら
                 password_check_flag = false;  //パスワードチェックしない
             } else {  //空じゃないなら（入力があったら）
-                e.setPassword(  //eにパスワードをセットして
+                e.setPassword(  //eに暗号化したパスワードをセット
                         EncryptUtil.getPasswordEncrypt( //暗号化する
                                 password,
                                 (String)this.getServletContext().getAttribute("pepper")
@@ -71,7 +71,7 @@ public class EmployeesUpdateServlet extends HttpServlet {
             //エラーがあったら、セッションIDと社員データ、エラーをedit.jsp渡す
             if(errors.size() > 0) {
                 em.close();
-
+                //セッションID、eデータ、エラーをリクエスト
                 request.setAttribute("_token", request.getSession().getId());
                 request.setAttribute("employee", e);
                 request.setAttribute("errors", errors);

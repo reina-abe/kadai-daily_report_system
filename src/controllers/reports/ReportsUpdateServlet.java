@@ -28,17 +28,18 @@ public class ReportsUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String _token = (String)request.getParameter("_token");
-        if(_token != null && _token.equals(request.getSession().getId())) {
+        if(_token != null && _token.equals(request.getSession().getId())) { //セッションID同じなら
             EntityManager em = DBUtil.createEntityManager();
-
+            //report_idの値から１件検索してｒに代入
             Report r = em.find(Report.class, (Integer)(request.getSession().getAttribute("report_id")));
-
+            //日報日時、タイトル、内容、更新日時をｒに設定
             r.setReport_date(Date.valueOf(request.getParameter("report_date")));
             r.setTitle(request.getParameter("title"));
             r.setContent(request.getParameter("content"));
             r.setUpdated_at(new Timestamp(System.currentTimeMillis()));
-
+            //ｒをバリデートする
             List<String> errors = ReportValidator.validate(r);
+            //エラーがあったら、セッションID("_token")とｒ("report")と"errors"をedit.jspに渡す
             if(errors.size() > 0) {
                 em.close();
 
@@ -48,14 +49,16 @@ public class ReportsUpdateServlet extends HttpServlet {
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/edit.jsp");
                 rd.forward(request, response);
+            //エラーがなかったらDBに保存
             } else {
                 em.getTransaction().begin();
                 em.getTransaction().commit();
                 em.close();
+                //フラッシュメッセージ
                 request.getSession().setAttribute("flush", "更新が完了しました。");
-
+                //"report_id"は除去
                 request.getSession().removeAttribute("report_id");
-
+                //indexにリダイレクト
                 response.sendRedirect(request.getContextPath() + "/reports/index");
             }
         }

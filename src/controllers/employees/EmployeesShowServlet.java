@@ -30,7 +30,7 @@ public class EmployeesShowServlet extends HttpServlet {
 
         em.close();
 
-        request.setAttribute("employee", e); //取得したデータをemployee名でjspに渡す
+        request.setAttribute("employee", e); //取得したデータをemployee名でshow.jspに渡す
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/show.jsp");
         rd.forward(request, response);

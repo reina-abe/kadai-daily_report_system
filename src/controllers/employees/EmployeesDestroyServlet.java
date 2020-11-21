@@ -26,7 +26,7 @@ public class EmployeesDestroyServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String _token = (String)request.getParameter("_token"); //_token（社員データ？）を取得して代入
+        String _token = (String)request.getParameter("_token"); //_tokenを取得して代入
         if(_token != null && _token.equals(request.getSession().getId())) { //セッションIDと同じなら
             EntityManager em = DBUtil.createEntityManager();
 

@@ -33,11 +33,11 @@ public class ReportsCreateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Report r = new Report();
-            //作成者をEmployeeとしてセッションスコープに入れる
+            Report r = new Report();//インスタンスｒ
+            //"login_employee"をrのemployeeに設定
             r.setEmployee((Employee)request.getSession().getAttribute("login_employee"));
 
-            Date report_date = new Date(System.currentTimeMillis());//インスタンス
+            Date report_date = new Date(System.currentTimeMillis());//report_dateインスタンス
             String rd_str = request.getParameter("report_date"); //日報日時を取得してrd_strに代入
             if(rd_str != null && !rd_str.equals("")) {//rd_strに値があれば
                 report_date = Date.valueOf(request.getParameter("report_date"));
@@ -70,7 +70,7 @@ public class ReportsCreateServlet extends HttpServlet {
                 em.persist(r);
                 em.getTransaction().commit();
                 em.close();
-                //フラッシュメッセージ
+                //フラッシュメッセージを渡す
                 request.getSession().setAttribute("flush", "登録が完了しました。");
                 //indexにリダイレクト
                 response.sendRedirect(request.getContextPath() + "/reports/index");

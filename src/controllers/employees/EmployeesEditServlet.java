@@ -32,7 +32,7 @@ public class EmployeesEditServlet extends HttpServlet {
 
         em.close();
         /*その1件をemployeeに指定、セッションidを_tokenに指定、
-        取得したセッションidををemployee_idに指定してセッションスコープに入れる*/
+        取得したセッションidををemployee_idに指定してセッションに入れる*/
         request.setAttribute("employee", e);
         request.setAttribute("_token", request.getSession().getId());
         request.getSession().setAttribute("employee_id", e.getId());

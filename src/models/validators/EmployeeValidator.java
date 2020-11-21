@@ -16,7 +16,7 @@ public class EmployeeValidator {
     public static List<String> validate(Employee e, Boolean code_duplicate_check_flag, Boolean password_check_flag) {
 
         List<String> errors = new ArrayList<String>(); //インスタンス"errors"
-
+        //社員番号、氏名、パスワードにエラーがあればerrorsに追加
         String code_error = _validateCode(e.getCode(), code_duplicate_check_flag);
         //_validateCodeメソッドでコードを取得、重複チェックしたらcode_errorに代入
         if(!code_error.equals("")) { //code_errorが空じゃない＝エラーがあるなら
@@ -38,7 +38,7 @@ public class EmployeeValidator {
 
     //社員番号（_validateCodeメソッド）
     public static String _validateCode(String code, Boolean code_duplicate_check_flag) {
-
+    //String code_error = _validateCode(e.getCode(), code_duplicate_check_flag)にの引数の値を当てはめる
         // 必須入力チェック
         if(code == null || code.equals("")){
                 return "社員番号を入力してください。";
