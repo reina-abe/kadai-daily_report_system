@@ -32,7 +32,19 @@ import javax.persistence.Table;
     @NamedQuery(  //自分の日報の全件数を取得
             name = "getMyReportsCount",
             query = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :employee"
-            )
+            ),
+    @NamedQuery(  //フォローした人の日報を取得
+            name = "getFollowReports",
+            query = "SELECT r FROM Report AS r, Follow_employees AS f WHERE r.employee = f.followee AND f.follower = :login_employee ORDER BY r.id DESC"
+            ),
+    @NamedQuery(  //フォローした人の日報件数を取得
+            name = "getFollowReportsCount",
+            query = "SELECT COUNT(r) FROM Report AS r, Follow_employees AS f WHERE r.employee = f.followee AND f.follower = :login_employee ORDER BY r.id DESC"
+        ),
+    @NamedQuery(  //前日未承認
+            name = "getUnapprovedReports",
+            query = "SELECT COUNT(r) FROM Report AS r, Approvals AS a WHERE r.approval = 0 AND r.employee.position < :login_employee AND a.created_at < :today ORDER BY r.id DESC"
+        )
 })
 @Entity
 public class Report {
@@ -58,6 +70,21 @@ public class Report {
 
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
+
+    // いいね数のプロパティを追加
+    @Column(name = "like_count", nullable = false)
+    private Integer like_count;
+
+    @Column(name = "approval", nullable = false)
+    private Integer approval;
+
+    public Integer getApproval() {
+        return approval;
+    }
+
+    public void setApproval(Integer approval) {
+        this.approval = approval;
+    }
 
     public Integer getId() {
         return id;
@@ -118,4 +145,11 @@ public class Report {
     @Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
 
+    //いいね数のゲッターセッターを追加
+    public Integer getLike_count() {
+        return like_count;
+    }
+    public void setLike_count(Integer like_count) {
+        this.like_count = like_count;
+    }
 }

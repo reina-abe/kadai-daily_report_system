@@ -141,19 +141,27 @@ table#report_list th {
 }
 
 table#report_list .report_name {
-    width: 20%;
+    width: 15%;
     padding: 10px 2%;
 }
 table#report_list .report_date {
-    width: 20%;
+    width: 12%;
 }
 
 table#report_list .report_title {
-    width: 37%;
+    width: 25%;
+}
+
+table#report_list .report_like_count {
+    width: 10%;
 }
 
 table#report_list .report_action {
-    width: 13%;
+    width: 15%;
+}
+
+table#report_list .report_status {
+    width: 23%;
 }
 
 pre {
@@ -163,3 +171,26 @@ pre {
 h3 {
     font-size: larger;
 }
+
+table#approval th {
+    font-weight: bold;
+    padding: 10px 2%;
+}
+
+table#approval .approval_name {
+    width: 20%;
+    padding: 10px 2%;
+}
+table#approval .approval_status {
+    width: 20%;
+}
+
+table#approval .approval_comment {
+    width: 40%;
+}
+
+table#approval .approval_date {
+    width: 20%;
+}
+
+

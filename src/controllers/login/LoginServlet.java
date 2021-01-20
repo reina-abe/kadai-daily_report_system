@@ -1,6 +1,7 @@
 package controllers.login;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -67,7 +68,7 @@ public class LoginServlet extends HttpServlet {
                       .setParameter("code", code)
                       .setParameter("pass", password) //クエリのpassのところに暗号化したpasswordを入れる
                       .getSingleResult();
-            } catch(NoResultException ex) {}
+            } catch(NoResultException ex) {} //例外が発生してもスルー
 
             em.close();
 
@@ -92,7 +93,20 @@ public class LoginServlet extends HttpServlet {
             オブジェクトが保存されている状態」がログインしている状態*/
 
             request.getSession().setAttribute("flush", "ログインしました。"); //フラッシュメッセージ
-            response.sendRedirect(request.getContextPath() + "/"); //最初の画面
+            response.sendRedirect(request.getContextPath() + "/");
+        }
+
+        EntityManager em = DBUtil.createEntityManager();
+        Employee employee = (Employee)request.getSession().getAttribute("login_employee");
+        int login_employee = employee.getPosition();
+        Timestamp today = new Timestamp(System.currentTimeMillis());
+        long unapproved = (long)em.createNamedQuery("getUnapprovedReports", Long.class)
+                .setParameter("login_employee", login_employee)
+                .setParameter("today", today)
+                .getSingleResult();
+        em.close();
+        if (unapproved != 0){
+            request.getSession().setAttribute("flush", "未承認の日報があります。");
         }
     }
 }

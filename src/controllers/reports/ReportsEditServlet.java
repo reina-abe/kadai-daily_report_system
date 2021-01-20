@@ -27,8 +27,13 @@ public class ReportsEditServlet extends HttpServlet {
         //1件取得
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
 
+        r.setApproval(0);
+
+        em.getTransaction().begin();
+        em.getTransaction().commit();
+
         em.close();
-        //
+
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
         //ここで取得したidとDBで取得したidが同じなら
         if(r != null && login_employee.getId() == r.getEmployee().getId()) {

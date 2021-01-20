@@ -47,6 +47,9 @@ public class ReportsCreateServlet extends HttpServlet {
             r.setReport_date(report_date);
             r.setTitle(request.getParameter("title"));
             r.setContent(request.getParameter("content"));
+            //いいね数に初期値0を設定
+            r.setLike_count(0);
+            r.setApproval(0);
             //インスタンスを生成して、現在時刻で登録日時と更新日時をrに設定
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             r.setCreated_at(currentTime);

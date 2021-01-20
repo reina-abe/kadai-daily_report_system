@@ -61,6 +61,7 @@ public class EmployeesUpdateServlet extends HttpServlet {
 
             //氏名、管理権限、更新日時、削除されてないか、の情報を設定する
             e.setName(request.getParameter("name"));
+            e.setPosition(Integer.parseInt(request.getParameter("position")));
             e.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
             e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
             e.setDelete_flag(0); //現役

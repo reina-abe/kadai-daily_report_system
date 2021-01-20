@@ -31,7 +31,7 @@ public class TopPageIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //自分の日報一覧を表示する
         EntityManager em = DBUtil.createEntityManager();
-        //loginした従業員情報をセッションスコープにいれる
+        //loginした従業員情報をlogin_employeeに代入
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
 
         //ページネーション

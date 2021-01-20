@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:import url="../layout/app.jsp">
     <c:param name="content">
         <c:if test="${flush != null}">
@@ -15,14 +16,28 @@
                     <th class="report_name">氏名</th>
                     <th class="report_date">日付</th>
                     <th class="report_title">タイトル</th>
+                    <th class="report_like_count">いいね数</th>
                     <th class="report_action">操作</th>
+                    <th class="report_status">承認ステータス</th>
                 </tr>
                 <c:forEach var="report" items="${reports}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td class="report_name"><c:out value="${report.employee.name}" /></td>
                         <td class="report_date"><fmt:formatDate value='${report.report_date}' pattern='yyyy-MM-dd' /></td>
                         <td class="report_title">${report.title}</td>
+                        <td class="report_like_count">
+                            <c:choose> <c:when test="${report.like_count == 0}"> <c:out value="${report.like_count}" /></c:when>
+                            <c:otherwise>  <pre><a href="<c:url value='/reports/like_employees?id=${report.id}' />">${report.like_count}</a></pre>
+                            </c:otherwise> </c:choose>
+                        </td>
                         <td class="report_action"><a href="<c:url value='/reports/show?id=${report.id}' />">詳細を見る</a></td>
+                        <td class="report_status">
+                            <c:choose>
+                            <c:when test="${report.approval == 0}"> <font color="lime">承認待ち</font></c:when>
+                            <c:when test="${report.approval == 1}"> 承認済み</c:when>
+                            <c:when test="${report.approval == 2}"> <font color="red">差戻し</font></c:when>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

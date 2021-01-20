@@ -53,6 +53,9 @@ public class Employee {
     private String password;
     //SHA256 というハッシュ関数を利用してハッシュ化した文字列をデータベースへ保存
 
+    @Column(name = "position", nullable = false)
+    private Integer position;
+
     @Column(name = "admin_flag", nullable = false) //管理者権限があるかどうか（一般：0、管理者：1）
     private Integer admin_flag;
 
@@ -95,6 +98,14 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public Integer getAdmin_flag() {

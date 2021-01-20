@@ -23,6 +23,14 @@
 <input type="password" name="password" />
 <br /><br />
 
+<label for="position">職位</label><br />
+<select name="position">
+    <option value="0"<c:if test="${employee.position == 0}"> selected</c:if>>一般</option>
+    <option value="1"<c:if test="${employee.position == 1}"> selected</c:if>>課長</option>
+    <option value="2"<c:if test="${employee.position == 2}"> selected</c:if>>部長</option>
+</select>
+<br /><br />
+
 <label for="admin_flag">権限</label><br />
 <select name="admin_flag">
     <option value="0"<c:if test="${employee.admin_flag == 0}"> selected</c:if>>一般</option>

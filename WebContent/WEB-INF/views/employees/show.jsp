@@ -18,6 +18,16 @@
                             <td><c:out value="${employee.name}" /></td>
                         </tr>
                         <tr>
+                            <th>職位</th>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${employee.position == 1}">課長</c:when>
+                                    <c:when test="${employee.position == 2}">部長</c:when>
+                                    <c:otherwise>一般</c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>権限</th>
                             <td>
                                 <c:choose>

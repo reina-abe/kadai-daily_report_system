@@ -42,6 +42,7 @@ public class EmployeesCreateServlet extends HttpServlet {
                         (String)this.getServletContext().getAttribute("pepper")
                     )
                 );
+            e.setPosition(Integer.parseInt(request.getParameter("position")));
             e.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
 
             //インスタンス生成して登録・更新日時をeにセット
