@@ -24,6 +24,7 @@ public class ReportsTimeline extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //自分がフォローしている人の全日報を取得
         EntityManager em = DBUtil.createEntityManager();
 
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
@@ -40,11 +41,6 @@ public class ReportsTimeline extends HttpServlet {
                                         .setFirstResult(15 * (page - 1))
                                         .setMaxResults(15)
                                         .getResultList();
-
-            /*@NamedQuery(  //フォローした人の日報を取得
-                    name = "getFollowReports",
-                    query = "SELECT r FROM Report AS r, Follow_employees AS f WHERE r.employee = f.followee AND f.follower = :login_employee ORDER BY r.id DESC"
-                )*/
 
         long reports_count = (long)em.createNamedQuery("getFollowReportsCount", Long.class)
                                         .setParameter("login_employee", login_employee)

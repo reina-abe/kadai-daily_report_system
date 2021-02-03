@@ -15,30 +15,20 @@ import models.Like_employees;
 import models.Report;
 import utils.DBUtil;
 
-/**
- * Servlet implementation class ReportsLikeServlet
- */
 @WebServlet("/reports/like")
 public class ReportsLikeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ReportsLikeServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //該当の日報のいいね数に１加算する
         EntityManager em = DBUtil.createEntityManager();
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
 
-        int likes = r.getLike_count() + 1; // データベースから取得した日報データのいいね数に1を加算します
-
+        int likes = r.getLike_count() + 1; // いいね数+1
         r.setLike_count(likes);
 
         Like_employees le = new Like_employees();

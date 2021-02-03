@@ -27,6 +27,7 @@ public class ReportsFollowDestroy extends HttpServlet {
             }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //フォロー解除
         EntityManager em = DBUtil.createEntityManager();
 
         Follow_employees f = em.find(Follow_employees.class, Integer.parseInt(request.getParameter("id")));

@@ -35,16 +35,19 @@ public class ReportsShowServlet extends HttpServlet {
 
         Employee employee = (Employee)request.getSession().getAttribute("login_employee");
 
+        //該当の日報にすでにいいねしてるかチェック
         long like_check = (long)em.createNamedQuery("checkLikeEmployees", Long.class)
-                                     .setParameter("report", report)
-                                      .setParameter("employee", employee)
-                                       .getSingleResult();
+                .setParameter("report", report)
+                .setParameter("employee", employee)
+                .getSingleResult();
 
+        //該当の従業員をフォローしてるかチェック
         long follow_check = (long)em.createNamedQuery("checkFollowEmployee", Long.class)
-                                        .setParameter("follower", employee)
-                                        .setParameter("followee", report.getEmployee())
-                                        .getSingleResult();
+                .setParameter("follower", employee)
+                .setParameter("followee", report.getEmployee())
+                .getSingleResult();
 
+        //承認履歴
         int r = report.getId();
 
         List<Approvals> histry = em.createNamedQuery("getApprovedHistry", Approvals.class)

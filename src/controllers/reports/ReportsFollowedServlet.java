@@ -15,7 +15,6 @@ import models.Employee;
 import models.Follow_employees;
 import utils.DBUtil;
 
-//フォロワーを取得
 @WebServlet("/reports/followed")
 public class ReportsFollowedServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -44,6 +43,7 @@ public class ReportsFollowedServlet extends HttpServlet {
                                                .setParameter("followee", followee)
                                                .getSingleResult();
 
+        //相手をフォローしているかチェック
         long[] followChecks = new long[followees.size()]; //データ型の配列（あとから増やせない）
         int i = 0;
         for (Follow_employees followEmployee : followees) { //followerは自分、followeeは相手、自分が相手をフォローしてなかったら０
@@ -58,7 +58,6 @@ public class ReportsFollowedServlet extends HttpServlet {
         em.close();
 
         request.setAttribute("follow_check", followChecks);
-
         request.setAttribute("followees", followees);
         request.setAttribute("followees_count",followees_count);
         request.setAttribute("page", page);

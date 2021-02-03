@@ -14,7 +14,6 @@ import models.Employee;
 import models.Follow_employees;
 import utils.DBUtil;
 
-//フォロー返しして登録
 @WebServlet("/reports/followback")
 public class ReportsFollowbackServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -24,6 +23,7 @@ public class ReportsFollowbackServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //フォロー返ししてDBに保存
         EntityManager em = DBUtil.createEntityManager();
         Follow_employees f = em.find(Follow_employees.class, Integer.parseInt(request.getParameter("id")));
         Employee followee = f.getFollower();

@@ -15,7 +15,6 @@ import models.Employee;
 import models.Follow_employees;
 import utils.DBUtil;
 
-//フォローしている人を取得
 @WebServlet("/reports/following")
 public class ReportsFollowingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -30,6 +29,7 @@ public class ReportsFollowingServlet extends HttpServlet {
 
         Employee follower = (Employee)request.getSession().getAttribute("login_employee");
 
+        //自分がフォローしている人を取得
         int page = 1;
         try{
             page = Integer.parseInt(request.getParameter("page"));

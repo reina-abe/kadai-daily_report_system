@@ -1,7 +1,8 @@
-package controllers.reports;
+package controllers.attendance;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -10,43 +11,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Approvals;
+import models.Attendance;
 import models.Employee;
-import models.Report;
 import utils.DBUtil;
 
-@WebServlet("/reports/first/remand")
-public class ReportsFirstRemandServlet extends HttpServlet {
+@WebServlet("/attendance/attend")
+public class AttendanceAttendServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public ReportsFirstRemandServlet() {
+    public AttendanceAttendServlet() {
         super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
+        Attendance a = new Attendance();
 
-        int approval = r.getApproval() + 2;
-        r.setApproval(approval);
-
-        Approvals a = new Approvals();
         a.setEmployee((Employee)request.getSession().getAttribute("login_employee"));
-        a.setReport(r);
+        //出勤ボタンでレコード追加
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         a.setCreated_at(currentTime);
         a.setUpdated_at(currentTime);
-        a.setApproval(approval);
+        a.setStart_at(currentTime);
+        a.setFinish_at(currentTime);
+
+        String str = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        java.sql.Date date = java.sql.Date.valueOf(str);
+        a.setDate(date);
 
         em.getTransaction().begin();
-        //em.persist(a);
+        em.persist(a);
         em.getTransaction().commit();
         em.close();
 
-        request.getSession().setAttribute("flush", "差戻しました。");
+        response.sendRedirect(request.getContextPath() + "/attendance/button");
 
-        response.sendRedirect(request.getContextPath() + "/reports/unapproved");
     }
 
 }

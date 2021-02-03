@@ -193,4 +193,87 @@ table#approval .approval_date {
     width: 20%;
 }
 
+a.button1 {
+    display: inline-block;
+    text-decoration: none;
+    background: #ff8080;
+    color: #FFF;
+    width: 150px;
+    height: 120px;
+    line-height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    overflow: hidden;
+    transition: .4s;
+    text-align:center;
+}
 
+a.button1:hover {
+    background: #ff4646;
+}
+
+a.button2 {
+    display: inline-block;
+    text-decoration: none;
+    background: #87befd;
+    color: #FFF;
+    width: 150px;
+    height: 120px;
+    line-height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    overflow: hidden;
+    transition: .4s;
+}
+
+a.button2:hover {
+    background: #668ad8;
+}
+
+a.button0 {
+    display: inline-block;
+    text-decoration: none;
+    background: #c0c0c0;
+    color: #FFF;
+    width: 150px;
+    height: 120px;
+    line-height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    overflow: hidden;
+    transition: .4s;
+}
+
+.box1 {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    color: #6091d3;/*文字色*/
+    width: 300px;
+    background: #FFF;
+    border: solid 3px #6091d3;/*線*/
+    border-radius: 10px;/*角の丸み*/
+    margin-left: auto;
+    margin-right: auto
+}
+.box1 p {
+    margin: 0;
+    padding: 0;
+}
+
+.box2 {
+    text-align:center;
+    width:100%;
+}
+
+h5 {
+    font-size: 36px;
+    font-family: arial;
+    margin-bottom: 15px
+}
+
+p#RealtimeClockArea {
+    font_size: 36px;
+    margin-left: auto;
+    margin-right: auto
+}

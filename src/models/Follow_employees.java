@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Table(name = "follow_employees")
 @NamedQueries({
-    @NamedQuery( //フォローしているユーザ
+    @NamedQuery(
             name = "getAllFollowing",
             query = "SELECT fe FROM Follow_employees AS fe WHERE fe.follower = :follower ORDER BY fe.created_at DESC"
             ),
@@ -24,10 +24,10 @@ import javax.persistence.Table;
         query = "SELECT COUNT(fe) FROM Follow_employees AS fe WHERE fe.follower = :follower"
     ),
     @NamedQuery(
-            name = "checkFollowEmployee", //フォローしてたら表示されない
+            name = "checkFollowEmployee",
             query = "SELECT COUNT(fe) FROM Follow_employees AS fe WHERE fe.follower = :follower AND fe.followee = :followee"
         ),
-    @NamedQuery( //フォローされている
+    @NamedQuery(
             name = "getAllFollowed",
             query = "SELECT fe FROM Follow_employees AS fe WHERE fe.followee = :followee ORDER BY fe.created_at DESC"
             ),
@@ -36,7 +36,7 @@ import javax.persistence.Table;
             query = "SELECT COUNT(fe) FROM Follow_employees AS fe WHERE fe.followee = :followee"
     ),
     @NamedQuery(
-            name = "checkFollowing", //フォローしてたら表示されない
+            name = "checkFollowing",
             query = "SELECT COUNT(fe) FROM Follow_employees AS fe WHERE fe.follower = :follower"
         ),
 })

@@ -24,9 +24,12 @@
                         <td class="report_date"><fmt:formatDate value='${report.report_date}' pattern='yyyy-MM-dd' /></td>
                         <td class="report_title">${report.title}</td>
                         <td class="report_like_count">
-                            <c:choose> <c:when test="${report.like_count == 0}"> <c:out value="${report.like_count}" /></c:when>
-                            <c:otherwise>  <pre><a href="<c:url value='/reports/like_employees?id=${report.id}' />">${report.like_count}</a></pre>
-                            </c:otherwise> </c:choose>
+                            <c:choose>
+                                <c:when test="${report.like_count == 0}"> <c:out value="${report.like_count}" />
+                                </c:when>
+                                <c:otherwise>  <a href="<c:url value='/reports/like_employees?id=${report.id}' />">${report.like_count}</a>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                         <td class="report_action"><a href="<c:url value='/reports/show?id=${report.id}' />">詳細を見る</a></td>
                     </tr>

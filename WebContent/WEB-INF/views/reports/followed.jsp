@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
         <h2>あなたをフォローしているユーザー</h2>
@@ -14,14 +15,14 @@
                     <tr class="row${status.count % 2}">
                         <td class="followee_name"><c:out value="${follow_employees.follower.name}" /></td>
                         <td class="follow_status">
-                        <c:choose>
+                            <c:choose>
                                 <c:when test="${follow_check[status.index]==0}">
                                     <p><a href="<c:url value="/reports/followback?id=${follow_employees.id}" />">このユーザーをフォローする</a></p>
                                 </c:when>
                                 <c:otherwise>
                                     <p>フォロー中</p>
                                 </c:otherwise>
-                        </c:choose>
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>
@@ -30,7 +31,8 @@
 
         <div id="pagination">
             （全 ${followees_count} 件）<br />
-            <c:forEach var="i" begin="1" end="${((followees_count - 1) / 15) + 1}" step="1">
+            <c:forEach var="i" begin="1"
+                end="${((followees_count - 1) / 15) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
                         <c:out value="${i}" />&nbsp;

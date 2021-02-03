@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
 
@@ -21,9 +22,14 @@
                         <td class="report_date"><fmt:formatDate value='${report.report_date}' pattern='yyyy-MM-dd' /></td>
                         <td class="report_title">${report.title}</td>
                         <td class="report_like_count">
-                            <c:choose> <c:when test="${report.like_count == 0}"> <c:out value="${report.like_count}" /></c:when>
-                            <c:otherwise>  <pre><a href="<c:url value='/reports/like_employees?id=${report.id}' />">${report.like_count}</a></pre>
-                            </c:otherwise> </c:choose>
+                            <c:choose>
+                                <c:when test="${report.like_count == 0}">
+                                    <c:out value="${report.like_count}" />
+                                </c:when>
+                                <c:otherwise>
+                                    <pre><a href="<c:url value='/reports/like_employees?id=${report.id}' />">${report.like_count}</a></pre>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                         <td class="report_action"><a href="<c:url value='/reports/show?id=${report.id}' />">詳細を見る</a></td>
                     </tr>
@@ -33,7 +39,8 @@
 
         <div id="pagination">
             （全 ${reports_count} 件）<br />
-            <c:forEach var="i" begin="1" end="${((reports_count - 1) / 15) + 1}" step="1">
+            <c:forEach var="i" begin="1" end="${((reports_count - 1) / 15) + 1}"
+                step="1">
                 <c:choose>
                     <c:when test="${i == page}">
                         <c:out value="${i}" />&nbsp;

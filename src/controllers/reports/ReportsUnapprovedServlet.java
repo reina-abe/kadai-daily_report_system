@@ -25,7 +25,7 @@ public class ReportsUnapprovedServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        //自分の役職以下の従業員の認証待ち日報を取得
         EntityManager em = DBUtil.createEntityManager();
 
         Employee employee = (Employee)request.getSession().getAttribute("login_employee");

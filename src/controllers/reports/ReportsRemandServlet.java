@@ -28,6 +28,7 @@ public class ReportsRemandServlet extends HttpServlet {
             this.doPost(request, response);
             }*/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //役職者による日報の差戻し
         EntityManager em = DBUtil.createEntityManager();
 
         Report r = em.find(Report.class, Integer.parseInt(request.getParameter("id")));
