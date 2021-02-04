@@ -3,6 +3,8 @@ package controllers.attendance;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -41,10 +43,34 @@ public class AttendanceLeaveServlet extends HttpServlet {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         a.setFinish_at(currentTime);
 
-        em.getTransaction().begin();
-        em.getTransaction().commit();
-        em.close();
+        //実働時間を記録
+        LocalDateTime start = a.getStart_at().toLocalDateTime();
+        LocalDateTime finish = a.getFinish_at().toLocalDateTime();
+        Duration duration = Duration.between(start, finish);
+        long diff_hours = duration.toHours();
+        long diff_minutes = duration.toMinutes() % 60;
 
+        String work_time = diff_hours + "：" + diff_minutes;
+        int h = (int)diff_hours;
+        String work_time_break = String.valueOf((h -1) + "：" + diff_minutes);
+
+        //６時間未満ならそのまま
+        if(h < 6){
+            a.setWork_time(work_time);
+
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+            em.close();
+
+        //６時間以上なら１時間ひく
+        }else if(h >= 6){
+            a.setWork_time(work_time_break);
+            a.setBreak_time("01：00");
+
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+            em.close();
+        }
         response.sendRedirect(request.getContextPath() + "/attendance/button");
     }
 }

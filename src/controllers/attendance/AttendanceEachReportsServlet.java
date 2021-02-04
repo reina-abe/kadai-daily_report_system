@@ -17,18 +17,18 @@ import models.Attendance;
 import models.Employee;
 import utils.DBUtil;
 
-@WebServlet("/attendance/report")
-public class AttendanceReportServlet extends HttpServlet {
+@WebServlet("/attendance/eachReports")
+public class AttendanceEachReportsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public AttendanceReportServlet() {
+    public AttendanceEachReportsServlet() {
         super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        Employee employee = (Employee)request.getSession().getAttribute("login_employee");
+        Employee employee = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
 
         //月初を取得
         Calendar cal1 = Calendar.getInstance();
@@ -40,7 +40,7 @@ public class AttendanceReportServlet extends HttpServlet {
         cal2.set(Calendar.DAY_OF_MONTH, max);
         Date end_date = new Date(cal2.getTimeInMillis());
 
-        int thisMonth = 1;
+        int e = 1;
 
         //１か月の勤怠管理表
         List<Attendance> report = em.createNamedQuery("getAttendReport", Attendance.class)
@@ -50,7 +50,7 @@ public class AttendanceReportServlet extends HttpServlet {
                 .getResultList();
 
         request.setAttribute("report", report);
-        request.setAttribute("thisMonth", thisMonth);
+        request.setAttribute("e", e);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/attendance/report.jsp");
         rd.forward(request, response);

@@ -36,6 +36,12 @@ public class AttendanceAttendServlet extends HttpServlet {
         a.setStart_at(currentTime);
         a.setFinish_at(currentTime);
 
+        String work_time = "00：00";
+        a.setWork_time(work_time);
+
+        String break_time = "00：00";
+        a.setBreak_time(break_time);
+
         String str = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
         java.sql.Date date = java.sql.Date.valueOf(str);
         a.setDate(date);

@@ -96,6 +96,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/");
         }
 
+        //未承認の日報がある場合はフラッシュメッセージ
         EntityManager em = DBUtil.createEntityManager();
         Employee employee = (Employee)request.getSession().getAttribute("login_employee");
         int login_employee = employee.getPosition();

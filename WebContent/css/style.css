@@ -11,6 +11,11 @@ body {
     background-color: #333333;
 }
 
+#header_menu {
+    font-size: 80%;
+    background-color: #333333;
+}
+
 #content {
     width: 94%;
     margin-top: 15px;

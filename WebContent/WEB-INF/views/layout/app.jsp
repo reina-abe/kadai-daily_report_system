@@ -18,7 +18,10 @@
                             <a href="<c:url value='/employees/index' />">従業員管理</a>&nbsp;
                         </c:if>
                         <a href="<c:url value='/attendance/button' />">出退勤</a>&nbsp;
-                        <a href="<c:url value='/attendance/report' />">勤怠管理</a>&nbsp;
+                        <a href="<c:url value='/attendance/report' />">勤怠表</a>&nbsp;
+                        <c:if test="${sessionScope.login_employee.position != 0}">
+                        <a href="<c:url value='/attendance/employees' />">従業員勤怠</a>&nbsp;
+                        </c:if>
                         <a href="<c:url value='/reports/index' />">日報管理</a>&nbsp;
                         <a href="<c:url value='/reports/timeline' />">タイムライン</a>&nbsp;
                         <a href="<c:url value='/reports/following' />">フォロー</a>&nbsp;

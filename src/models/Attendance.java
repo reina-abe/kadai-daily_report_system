@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Table(name = "attendance")
 @NamedQueries({
-    @NamedQuery(
+        @NamedQuery(
             name = "getAttendedEmployee",
             query = "SELECT a FROM Attendance AS a WHERE a.employee = :employee AND a.date = :date"
             ),
@@ -59,6 +59,28 @@ public class Attendance {
 
     @Column(name = "date", nullable = false)
     private Date date;
+
+    @Column(name = "work_time", nullable = false)
+    private String work_time;
+
+    @Column(name = "break_time", nullable = false)
+    private String break_time;
+
+    public String getWork_time() {
+        return work_time;
+    }
+
+    public String getBreak_time() {
+        return break_time;
+    }
+
+    public void setBreak_time(String break_time) {
+        this.break_time = break_time;
+    }
+
+    public void setWork_time(String work_time) {
+        this.work_time = work_time;
+    }
 
     public Integer getId() {
         return id;
